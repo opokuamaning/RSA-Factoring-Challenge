@@ -1,21 +1,21 @@
-#!/usr/bin/python3
+#/usr/bin/env python3
 import sys
 
 
-def factorize_number(n):
-    for i in range(2, n):
-        if n % i == 0:
-            return (i, n)
+def primef(n):
+    if n <= 3:
+        return int(n)
+    if n % 2 == 0:
+        return 2
+    elif n % 3 == 0:
+        return 3
+    else:
+        for i in range(5, int((n)**0.5) + 1, 6):
+            if n % i == 0:
+                return int(i)
+            if n % (i + 2) == 0:
+                return primef(n/(i+2))
+    return int(n)
 
 
-if len(sys.argv) != 2:
-    print("Usage: python factors.py <file>")
-    sys.exit(1)
-
-filename = sys.argv[1]
-
-with open(filename, 'r') as file:
-    for line in file:
-        number = int(line.strip())
-        factors = factorize_number(number)
-        print(f"{number}={factors[0]}*{factors[1]}")
+print(primef(int(sys.argv[1])))
